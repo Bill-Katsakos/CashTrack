@@ -118,9 +118,21 @@ const deleteExpense = async (req, res) => {
   app.delete("/expenses/delete/:id", deleteExpense);
 
 
+// __________Update expense ________
+const updateExpense = async (req, res) => {
+    try {
+      const updateExpense = await Expenses.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (!updateExpense) {
+        res.status(404).send({ msg: "Expense not found" });
+      } else {
+        res.status(200).send({ msg: "Expense updated successfully", updateExpense });
+      }
+    } catch (error) {
+      res.status(500).send({ msg: "Cannot retrieve Expense", error: error.message });
+    }
+  };
 
-
-
+  app.put("/expenses/update/:id", updateExpense);
 
 
 

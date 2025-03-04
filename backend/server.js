@@ -56,8 +56,8 @@ const Expenses = mongoose.model("Expenses", expensesSchema);
 
 
 
-
-app.get("/user", async (req, res) => {
+// _________Get Test_________
+app.get("/user/test", async (req, res) => {
   try {
     let user = await User.find()
     return res.send(user);
@@ -66,7 +66,7 @@ app.get("/user", async (req, res) => {
   }
 });
 
-app.get("/expenses", async (req, res) => {
+app.get("/expenses/test", async (req, res) => {
   try {
     let expenses = await Expenses.find()
     return res.send(expenses);
@@ -75,21 +75,41 @@ app.get("/expenses", async (req, res) => {
   }
 });
 
+// _________Get specific user Expenses_________
+app.get("/expenses", authMiddleware, async (req, res) => {
+    try {
+      let userId = req.user.userId;
+      let userExpenses = await Expenses.find({ user: userId });
+      return res.status(200).send(userExpenses);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+  });
 
+// __________Create an Expense TEST________
+const createExpenseTest = async (req, res) => {
+    try {
+      let createdExpense = await Expenses.create(req.body);
+      res.status(200).send({ msg: "An expense is been added successfully 🤑", createdExpense });
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
+  
+app.post("/expenses/add/test", createExpenseTest);
 
-// __________Create an Expense________
+// __________Create an Expense with user ID________
 const createExpense = async (req, res) => {
     try {
-    //   let userId = req.user.userId;
-    //   const { description, date, amount } = req.body;
+      let userId = req.user.userId;
+      const { description, date, amount } = req.body;
   
-    //   let createdExpense = await Expenses.create({
-    //     description,
-    //     date,
-    //     amount,
-    //     user: userId,
-    //   });
-      let createdExpense = await Expenses.create(req.body);
+      let createdExpense = await Expenses.create({
+        description,
+        date,
+        amount,
+        user: userId,
+      });
   
       res.status(200).send({ msg: "An expense is been added successfully 🤑", createdExpense });
     } catch (error) {
@@ -97,7 +117,7 @@ const createExpense = async (req, res) => {
     }
   };
   
-app.post("/expenses/add", createExpense);
+app.post("/expenses/add", authMiddleware, createExpense);
 
 
 // __________Delete expense ________

@@ -120,8 +120,8 @@ const createExpense = async (req, res) => {
 app.post("/expenses/add", authMiddleware, createExpense);
 
 
-// __________Delete expense ________
-const deleteExpense = async (req, res) => {
+// __________Delete expense Test________
+const deleteExpenseTest = async (req, res) => {
     try {
 
       const deleteExpense = await Expenses.findByIdAndDelete(req.params.id);
@@ -135,7 +135,27 @@ const deleteExpense = async (req, res) => {
     }
   };
   
-  app.delete("/expenses/delete/:id", deleteExpense);
+  app.delete("/expenses/delete/test/:id", deleteExpenseTest);
+
+// __________Delete expense ________
+const deleteExpense = async (req, res) => {
+    try {
+        const { expenseId } = req.body;
+        if (!expenseId)
+            return res.status(400).json({ msg: "Please provide the expense ID." });
+
+        const expense = await Expenses.findByIdAndDelete(expenseId);
+        if (!expense) {
+                return res.status(404).json({ msg: "Expense not found." });
+            }
+            return res.status(200).json({ msg: "Expense successfully deleted." });
+
+    } catch (error) {
+      return res.status(500).json({ msg: "Server error", error: error.message });
+    }
+  };
+  
+  app.delete("/expenses/delete", authMiddleware, deleteExpense);
 
 
 // __________Update expense ________

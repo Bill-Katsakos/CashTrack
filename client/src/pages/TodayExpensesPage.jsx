@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext"; 
 import { fetchExpenses, deleteExpense, updateExpense } from "../services/expenseService";
 import ExpenseList from "../components/ExpenseList";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import "../styles/expenseList.css";
 import "../styles/global.css";
 
 const TodayExpensesPage = () => {
   const [expenses, setExpenses] = useState([]);
   const navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext); 
 
-  // Fetch and filter today's expenses
+  // Function to fetch and filter today's expenses
   const fetchAndFilterExpenses = async () => {
     try {
       const allExpenses = await fetchExpenses();
@@ -19,44 +21,47 @@ const TodayExpensesPage = () => {
       setExpenses(todaysExpenses);
     } catch (err) {
       console.error("Failed to fetch expenses", err);
-      navigate("/login");
+      setIsLoggedIn(false);
+      navigate("/");
     }
   };
 
-  // Handle delete
-  const handleDelete = async (expenseId) => {
-    try {
-      await deleteExpense(expenseId);
-      fetchAndFilterExpenses(); // Re-fetch to update the list
-    } catch (err) {
-      console.error("Failed to delete expense", err);
+  // Check if user is logged in on component mount
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/");
+      return;
     }
-  };
-
-  // Handle update
-  const handleUpdate = async (updatedExpense) => {
-    try {
-      await updateExpense(updatedExpense);
-      fetchAndFilterExpenses(); // Re-fetch to update the list
-    } catch (err) {
-      console.error("Failed to update expense", err);
-    }
-  };
+    fetchAndFilterExpenses();
+  }, [isLoggedIn, navigate, setIsLoggedIn]);
 
   useEffect(() => {
-    fetchAndFilterExpenses();
-  }, [navigate]);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setIsLoggedIn(false);
+          navigate("/");
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [navigate, setIsLoggedIn]);
 
   return (
     <div className="page-container">
-    <div className="dashboard">
-      <h2>Today's Expenses</h2>
-      <ExpenseList
-        expenses={expenses}
-        onDelete={handleDelete}
-        onUpdate={handleUpdate}
-      />
-    </div>
+      <div className="dashboard">
+        <h2>Today's Expenses</h2>
+        <ExpenseList
+          expenses={expenses}
+          onDelete={deleteExpense}
+          onUpdate={updateExpense}
+        />
+      </div>
     </div>
   );
 };

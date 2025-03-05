@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../styles/forms.css"
+
 const AddExpenseForm = ({ onAddExpense }) => {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -48,6 +49,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
+          max={new Date().toISOString().split("T")[0]} // max date user can add
         />
       </div>
       <div className="form-group">

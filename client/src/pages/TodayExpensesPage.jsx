@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { fetchExpenses, deleteExpense, updateExpense } from "../services/expenseService";
 import ExpenseList from "../components/ExpenseList";
 import { format, parseISO } from "date-fns";
+import "../styles/expenseList.css";
+import "../styles/global.css";
 
 const TodayExpensesPage = () => {
   const [expenses, setExpenses] = useState([]);
@@ -46,6 +48,7 @@ const TodayExpensesPage = () => {
   }, [navigate]);
 
   return (
+    <div className="page-container">
     <div className="dashboard">
       <h2>Today's Expenses</h2>
       <ExpenseList
@@ -53,6 +56,7 @@ const TodayExpensesPage = () => {
         onDelete={handleDelete}
         onUpdate={handleUpdate}
       />
+    </div>
     </div>
   );
 };

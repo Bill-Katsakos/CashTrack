@@ -6,6 +6,7 @@ import HistoryPage from "./pages/HistoryPage";
 import TodayExpensesPage from "./pages/TodayExpensesPage";
 import DashboardPage from "./pages/DashboardPage";
 import Navbar from "./components/Navbar";
+import "./styles/global.css"
 
 
 const App = () => {

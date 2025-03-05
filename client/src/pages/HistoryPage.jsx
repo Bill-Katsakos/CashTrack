@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { fetchExpenses, deleteExpense, updateExpense } from "../services/expenseService";
 import ExpenseList from "../components/ExpenseList";
 import { format, parseISO } from "date-fns";
+import "../styles/historyPage.css";
+import "../styles/global.css";
 
 const HistoryPage = () => {
   const [groupedExpenses, setGroupedExpenses] = useState({});
@@ -45,6 +47,7 @@ const HistoryPage = () => {
   }, [navigate]);
 
   return (
+    <div className="page-container">
     <div className="history-page">
       <h2>Expense History</h2>
       {Object.entries(groupedExpenses)
@@ -59,6 +62,7 @@ const HistoryPage = () => {
             />
           </div>
         ))}
+    </div>
     </div>
   );
 };

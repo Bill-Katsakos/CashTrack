@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext"; 
+import { AuthContext } from "../context/AuthContext";
 import { fetchExpenses, deleteExpense, updateExpense } from "../services/expenseService";
 import ExpenseList from "../components/ExpenseList";
 import { format } from "date-fns";
@@ -10,7 +10,7 @@ import "../styles/global.css";
 const TodayExpensesPage = () => {
   const [expenses, setExpenses] = useState([]);
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, currencySymbol } = useContext(AuthContext); 
+  const { setIsLoggedIn, currencySymbol } = useContext(AuthContext);
 
   // Function to fetch and filter today's expenses
   const fetchAndFilterExpenses = async () => {
@@ -28,12 +28,13 @@ const TodayExpensesPage = () => {
 
   // Check if user is logged in on component mount
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!localStorage.getItem("token")) {
+      setIsLoggedIn(false);
       navigate("/");
       return;
     }
     fetchAndFilterExpenses();
-  }, [isLoggedIn, navigate, setIsLoggedIn]);
+  }, [navigate, setIsLoggedIn]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -53,8 +54,8 @@ const TodayExpensesPage = () => {
   }, [navigate, setIsLoggedIn]);
 
   const totalToday = expenses
-  .reduce((acc, expense) => acc + parseFloat(expense.amount), 0)
-  .toFixed(2);
+    .reduce((acc, expense) => acc + parseFloat(expense.amount), 0)
+    .toFixed(2);
 
   return (
     <div className="page-container">

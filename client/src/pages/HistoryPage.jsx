@@ -1,5 +1,3 @@
-// HistoryPage.jsx
-
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -11,7 +9,7 @@ import "../styles/global.css";
 
 const HistoryPage = () => {
   const [groupedExpenses, setGroupedExpenses] = useState({});
-  const { isLoggedIn, setIsLoggedIn, currencySymbol } = useContext(AuthContext);
+  const { setIsLoggedIn, currencySymbol } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // This function is used to group expenses by "MMMM yyyy"
@@ -40,12 +38,13 @@ const HistoryPage = () => {
 
   // Ensure user is logged in, otherwise redirect to "/"
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!localStorage.getItem("token")) {
+      setIsLoggedIn(false);
       navigate("/");
       return;
     }
     fetchAndGroupExpenses();
-  }, [isLoggedIn, navigate, setIsLoggedIn]);
+  }, [navigate, setIsLoggedIn]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {

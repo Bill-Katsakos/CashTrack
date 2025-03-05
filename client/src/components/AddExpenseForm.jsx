@@ -38,7 +38,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
 
   return (
     <form onSubmit={handleSubmit} className="expense-form">
-      <h3>Add New Expense</h3>
+      <h2>Add New Expense</h2>
       {error && <p className="error">{error}</p>}
       <div className="form-group">
         <label>Description</label>

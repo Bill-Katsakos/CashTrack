@@ -12,7 +12,6 @@ const TodayExpensesPage = () => {
   const navigate = useNavigate();
   const { setIsLoggedIn, currencySymbol } = useContext(AuthContext);
 
-  // Function to fetch and filter today's expenses
   const fetchAndFilterExpenses = async () => {
     try {
       const allExpenses = await fetchExpenses();
@@ -26,7 +25,6 @@ const TodayExpensesPage = () => {
     }
   };
 
-  // Check if user is logged in on component mount
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       setIsLoggedIn(false);
@@ -53,6 +51,24 @@ const TodayExpensesPage = () => {
     };
   }, [navigate, setIsLoggedIn]);
 
+  const handleDelete = async (expenseId) => {
+    try {
+      await deleteExpense(expenseId);
+      fetchAndFilterExpenses();
+    } catch (err) {
+      console.error("Failed to delete expense", err);
+    }
+  };
+
+  const handleUpdate = async (updatedExpense) => {
+    try {
+      await updateExpense(updatedExpense);
+      fetchAndFilterExpenses();
+    } catch (err) {
+      console.error("Failed to update expense", err);
+    }
+  };
+
   const totalToday = expenses
     .reduce((acc, expense) => acc + parseFloat(expense.amount), 0)
     .toFixed(2);
@@ -63,8 +79,8 @@ const TodayExpensesPage = () => {
         <h2>Today's Expenses: {totalToday}{` ${currencySymbol}`}</h2>
         <ExpenseList
           expenses={expenses}
-          onDelete={deleteExpense}
-          onUpdate={updateExpense}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate}
         />
       </div>
     </div>

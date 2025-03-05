@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FaEdit, FaTrash, FaSave, FaTimes } from "react-icons/fa";
 import "../styles/expenseList.css";
 import { parseISO, format } from "date-fns";
+import { AuthContext } from "../context/AuthContext";
 
 const ExpenseList = ({ expenses, onDelete, onUpdate }) => {
   const [editingId, setEditingId] = useState(null);
@@ -15,6 +16,8 @@ const ExpenseList = ({ expenses, onDelete, onUpdate }) => {
     setEditedDate(expense.date);
     setEditedAmount(expense.amount);
   };
+
+  const { currencySymbol } = useContext(AuthContext);
 
   const handleSaveClick = async (expenseId) => {
     const updatedExpense = {
@@ -86,7 +89,10 @@ const ExpenseList = ({ expenses, onDelete, onUpdate }) => {
               ) : (
                 <div className="expense-details">
                   <span className="expense-description">{expense.description}</span>
-                  <span className="expense-amount">${expense.amount}</span>
+                  <span className="expense-amount">
+                    {expense.amount}
+                    {` ${currencySymbol}`}
+                  </span>
 
                   {/* display the date with "dd/MM/yy" format */}
                   <span className="expense-date">{displayDate}</span>

@@ -59,7 +59,7 @@ const TodayExpensesPage = () => {
   return (
     <div className="page-container">
       <div className="dashboard">
-        <h2>Today's Expenses: ${totalToday}</h2>
+        <h2>Today's Expenses: {totalToday}</h2>
         <ExpenseList
           expenses={expenses}
           onDelete={deleteExpense}

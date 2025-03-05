@@ -68,7 +68,7 @@ const DashboardPage = () => {
     <div className="page-container">
       <div className="dashboard">
         <h2>Dashboard</h2>
-        <AddExpenseForm onAddExpense={handleAddExpense} />
+        <AddExpenseForm onAddExpense={handleAddExpense} defaultDate={new Date().toISOString().split('T')[0]} />
       </div>
     </div>
   );

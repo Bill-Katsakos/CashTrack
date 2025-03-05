@@ -99,7 +99,7 @@ const HistoryPage = () => {
               <div key={monthYear} className="month-section">
                 {/* Display the monthly total next to the monthYear */}
                 <h3 className="month-header">
-                  {monthYear} - ${monthlyTotal}
+                  {monthYear} - {monthlyTotal}
                 </h3>
                 <ExpenseList
                   expenses={expenses}

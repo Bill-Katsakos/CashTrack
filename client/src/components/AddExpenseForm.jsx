@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/forms.css"
 
+const getTodayDate = () => {
+  return new Date().toLocaleDateString("sv-SE"); 
+};
+
+
 const AddExpenseForm = ({ onAddExpense }) => {
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(getTodayDate());
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
 
@@ -20,7 +25,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
       );
       onAddExpense(response.data.createdExpense); // Update the expenses list
       setDescription("");
-      setDate("");
+      setDate(getTodayDate());
       setAmount("");
       setError("");
     } catch (err) {
@@ -49,7 +54,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
-          max={new Date().toISOString().split("T")[0]} // max date user can add
+          max={getTodayDate()} // max date user can add
         />
       </div>
       <div className="form-group">

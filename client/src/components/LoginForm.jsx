@@ -19,9 +19,18 @@ const LoginForm = () => {
         email,
         password,
       });
-      localStorage.setItem("token", response.data.token);
-      setIsLoggedIn(true); // Update auth state
-      navigate("/dashboard"); // Redirect to dashboard after login
+  
+      // Check if response contains a valid token before proceeding
+      if (response.data && response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        setIsLoggedIn(true); // Update auth state
+        navigate("/dashboard");  // Redirect to dashboard after login
+      } else {
+        // Display error message from server if available
+        setError(response.data.msg || "Login failed. Please try again.");
+        setEmail("")
+        setPassword("")
+      }
     } catch (err) {
       setError("Invalid email or password");
       console.error(err);

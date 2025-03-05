@@ -52,10 +52,14 @@ const TodayExpensesPage = () => {
     };
   }, [navigate, setIsLoggedIn]);
 
+  const totalToday = expenses
+  .reduce((acc, expense) => acc + parseFloat(expense.amount), 0)
+  .toFixed(2);
+
   return (
     <div className="page-container">
       <div className="dashboard">
-        <h2>Today's Expenses</h2>
+        <h2>Today's Expenses: ${totalToday}</h2>
         <ExpenseList
           expenses={expenses}
           onDelete={deleteExpense}

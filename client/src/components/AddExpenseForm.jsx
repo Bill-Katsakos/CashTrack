@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import "../styles/forms.css"
+import { AuthContext } from "../context/AuthContext"; 
 
 const getTodayDate = () => {
   return new Date().toLocaleDateString("sv-SE"); 
@@ -12,6 +13,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
   const [date, setDate] = useState(getTodayDate());
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
+    const { currencySymbol } = useContext(AuthContext); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +60,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
         />
       </div>
       <div className="form-group">
-        <label>Amount</label>
+        <label>Amount{` ${currencySymbol}`}</label>
         <input
           type="number"
           value={amount}

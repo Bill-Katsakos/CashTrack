@@ -11,7 +11,7 @@ import "../styles/global.css";
 
 const HistoryPage = () => {
   const [groupedExpenses, setGroupedExpenses] = useState({});
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn, currencySymbol } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // This function is used to group expenses by "MMMM yyyy"
@@ -99,7 +99,7 @@ const HistoryPage = () => {
               <div key={monthYear} className="month-section">
                 {/* Display the monthly total next to the monthYear */}
                 <h3 className="month-header">
-                  {monthYear} - {monthlyTotal}
+                  {monthYear} | {monthlyTotal} {` ${currencySymbol}`}
                 </h3>
                 <ExpenseList
                   expenses={expenses}

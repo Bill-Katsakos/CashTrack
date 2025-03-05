@@ -10,7 +10,7 @@ import "../styles/global.css";
 const TodayExpensesPage = () => {
   const [expenses, setExpenses] = useState([]);
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext); 
+  const { isLoggedIn, setIsLoggedIn, currencySymbol } = useContext(AuthContext); 
 
   // Function to fetch and filter today's expenses
   const fetchAndFilterExpenses = async () => {
@@ -59,7 +59,7 @@ const TodayExpensesPage = () => {
   return (
     <div className="page-container">
       <div className="dashboard">
-        <h2>Today's Expenses: {totalToday}</h2>
+        <h2>Today's Expenses: {totalToday}{` ${currencySymbol}`}</h2>
         <ExpenseList
           expenses={expenses}
           onDelete={deleteExpense}

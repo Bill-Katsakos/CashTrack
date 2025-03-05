@@ -2,6 +2,8 @@ import React, { useState , useContext} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import "../styles/forms.css";
+import "../styles/glassmorphism.css";
 
 const RegisterForm = () => {
     const { setIsLoggedIn } = useContext(AuthContext);

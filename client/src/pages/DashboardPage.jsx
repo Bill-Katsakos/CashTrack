@@ -3,6 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./TodayExpensesPage.jsx"
 import AddExpenseForm from "../components/AddExpenseForm";
+import "../styles/forms.css"
+import "../styles/global.css"
+import "../styles/dashboardPage.css";
 
 const DashboardPage = () => {
   const [expenses, setExpenses] = useState([]);
@@ -35,9 +38,11 @@ const DashboardPage = () => {
   };
 
   return (
+    <div className="page-container">
     <div className="dashboard">
       <h2>Dashboard</h2>
       <AddExpenseForm onAddExpense={handleAddExpense} />
+   </div>
    </div>
   )
 };

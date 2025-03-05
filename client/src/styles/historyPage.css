@@ -1,0 +1,14 @@
+.history-page {
+    padding: 20px;
+  }
+  
+  .month-section {
+    margin-bottom: 30px;
+  }
+  
+  .month-header {
+    color: #007bff;
+    border-bottom: 2px solid rgba(0, 123, 255, 0.2);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+  }

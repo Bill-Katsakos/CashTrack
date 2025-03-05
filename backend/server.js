@@ -158,8 +158,8 @@ const deleteExpense = async (req, res) => {
   app.delete("/expenses/delete", authMiddleware, deleteExpense);
 
 
-// __________Update expense ________
-const updateExpense = async (req, res) => {
+// __________Update expense Test________
+const updateExpenseTest = async (req, res) => {
     try {
       const updateExpense = await Expenses.findByIdAndUpdate(req.params.id, req.body, { new: true });
       if (!updateExpense) {
@@ -172,9 +172,24 @@ const updateExpense = async (req, res) => {
     }
   };
 
-  app.put("/expenses/update/:id", updateExpense);
-
-
+  app.put("/expenses/update/test/:id", updateExpenseTest);
+  
+  
+  // __________Update expense ________
+  const updateExpense = async (req, res) => {
+      try {
+        const expense = await Expenses.findById(req.body.expenseId);
+        if (!expense)
+          return res.status(404).json({ msg: "Expense not found." });
+        
+        const updatedExpense = await Expenses.findByIdAndUpdate(req.body.movieId, req.body, { new: true });
+        res.status(200).send({ msg: "Expense updated successfully", updateExpense });
+      } catch (error) {
+        res.status(500).send({ msg: "Cannot retrieve Expense", error: error.message });
+      }
+    };
+  
+    app.put("/expenses/update", authMiddleware, updateExpense);
 
 
 

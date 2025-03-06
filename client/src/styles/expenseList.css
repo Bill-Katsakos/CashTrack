@@ -12,26 +12,26 @@
 .expense-details {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Ευθυγραμμίζει το περιεχόμενο στην αρχή */
+  align-items: flex-start;
   width: 100%;
 }
 
 
 .expense-row {
   display: flex;
-  justify-content: space-between; /* Σπρώχνει τα labels και τα values στα άκρα */
+  justify-content: space-between;
   width: 100%;
 }
 
 .expense-label {
   font-weight: bold;
   text-align: left;
-  min-width: 100px; /* Μπορείς να προσαρμόσεις το πλάτος */
+  min-width: 100px;
 }
 
 .expense-value {
   text-align: right;
-  margin-left: auto; /* Σπρώχνει το περιεχόμενο δεξιά */
+  margin-left: auto;
 }
 
 .expense-actions {

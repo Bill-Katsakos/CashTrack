@@ -10,6 +10,7 @@
   align-items: center;
   padding: 15px 20px;
   background: rgba(255, 255, 255, 0.1);
+  background: rgba(242, 95, 76, 1);
   /* border: 1px solid rgba(255, 255, 255, 0.2); */
   border: none;
   border-radius: 8px;
@@ -42,7 +43,8 @@
   align-items: center;
   padding: 15px 20px;
   margin-bottom: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
+  background: rgba(242, 95, 76, 1);
   /* background: #fffffe; */
   /* border: 1px solid rgba(255, 255, 255, 0.2); */
   border: none;
@@ -50,6 +52,19 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   gap: 20px; /* Match header gap */
+  color: black;
+}
+.expense-item .edit-form input, .expense-description, .expense-amount, .expense-date, .edit-btn, .delete-btn, .save-btn, .cancel-btn {
+  color: black !important;
+}
+
+.edit-btn, .delete-btn, .save-btn, .cancel-btn {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.expense-item .edit-form input {
+  border: none;
 }
 
 .expense-details {

@@ -8,7 +8,8 @@
   /* Body */
   body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1a1a1a, #2d2d2d); /* Dark gradient */
+    /* background: linear-gradient(135deg, #1a1a1a, #2d2d2d);  */
+    background: #0f0e17; 
     color: white; /* Set default text color to white */
     line-height: 1.6;
     margin: 0;

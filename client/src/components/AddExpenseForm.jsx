@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import "../styles/forms.css"
+import { AuthContext } from "../context/AuthContext"; 
+
+const getTodayDate = () => {
+  return new Date().toLocaleDateString("sv-SE"); 
+};
+
+
 const AddExpenseForm = ({ onAddExpense }) => {
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(getTodayDate());
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
+    const { currencySymbol } = useContext(AuthContext); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +27,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
       );
       onAddExpense(response.data.createdExpense); // Update the expenses list
       setDescription("");
-      setDate("");
+      setDate(getTodayDate());
       setAmount("");
       setError("");
     } catch (err) {
@@ -30,7 +38,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
 
   return (
     <form onSubmit={handleSubmit} className="expense-form">
-      <h3>Add New Expense</h3>
+      <h2>Add New Expense</h2>
       {error && <p className="error">{error}</p>}
       <div className="form-group">
         <label>Description</label>
@@ -48,10 +56,11 @@ const AddExpenseForm = ({ onAddExpense }) => {
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
+          max={getTodayDate()} // max date user can add
         />
       </div>
       <div className="form-group">
-        <label>Amount</label>
+        <label>Amount{` ${currencySymbol}`}</label>
         <input
           type="number"
           value={amount}

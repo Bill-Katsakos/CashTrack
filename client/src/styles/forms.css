@@ -75,3 +75,42 @@
     color: white;
     text-align: center;
   }
+
+  /* Responsive Styles */
+@media (max-width: 768px) {
+  .auth-form {
+    padding: 15px;
+  }
+
+  .auth-form h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-group input {
+    padding: 6px;
+  }
+
+  .btn {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-form {
+    padding: 10px;
+  }
+
+  .auth-form h2 {
+    font-size: 1.2rem;
+  }
+
+  .form-group input {
+    padding: 5px;
+  }
+
+  .btn {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+}

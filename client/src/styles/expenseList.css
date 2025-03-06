@@ -2,6 +2,7 @@
   width: 100%;
   margin: 0 auto;
   padding: 0 20px;
+  overflow-x: auto; /* For mobile horizontal scrolling */
 }
 
 .expense-header {
@@ -9,32 +10,33 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  background: rgba(255, 255, 255, 0.1);
   background: rgba(242, 95, 76, 1);
-  /* border: 1px solid rgba(255, 255, 255, 0.2); */
   border: none;
   border-radius: 8px;
   margin-bottom: 10px;
   font-weight: 600;
   color: white;
   font-size: 1.1rem;
-  gap: 20px; /* Match item gap */
+  gap: 20px;
+  min-width: 650px; /* Minimum width for header */
 }
 
 .expense-header > span {
   flex: 1;
-  text-align: left;
+  text-align: center; /* Center header text */
+  min-width: 100px; /* Prevent text squishing */
 }
 
 .expense-header .header-description { flex: 3; }
-.expense-header .header-amount { flex: 1; text-align: right; }
-.expense-header .header-date { flex: 1; text-align: right; }
-.expense-header .header-actions { flex: 0.5; text-align: right; }
+.expense-header .header-amount { flex: 1; }
+.expense-header .header-date { flex: 1; }
+.expense-header .header-actions { flex: 0.5; }
 
 .expense-list {
   list-style-type: none;
   padding: 0;
   width: 100%;
+  min-width: 650px; /* Match header minimum width */
 }
 
 .expense-item {
@@ -43,22 +45,31 @@
   align-items: center;
   padding: 15px 20px;
   margin-bottom: 10px;
-  /* background: rgba(255, 255, 255, 0.1); */
   background: rgb(251, 248, 247);
-  /* background: #fffffe; */
-  /* border: 1px solid rgba(255, 255, 255, 0.2); */
   border: none;
   backdrop-filter: blur(10px);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  gap: 20px; /* Match header gap */
+  gap: 20px;
   color: black;
+  min-width: 650px; /* Match header minimum width */
 }
-.expense-item .edit-form input, .expense-description, .expense-amount, .expense-date, .edit-btn, .delete-btn, .save-btn, .cancel-btn {
+
+.expense-item .edit-form input,
+.expense-description,
+.expense-amount,
+.expense-date,
+.edit-btn,
+.delete-btn,
+.save-btn,
+.cancel-btn {
   color: black !important;
 }
 
-.edit-btn, .delete-btn, .save-btn, .cancel-btn {
+.edit-btn,
+.delete-btn,
+.save-btn,
+.cancel-btn {
   border: none !important;
   background-color: transparent !important;
 }
@@ -76,56 +87,35 @@
 }
 
 .expense-description {
-  flex: 3; /* Match header ratio */
+  flex: 3;
   font-size: 1.1rem;
   font-weight: 500;
-  color: white;
-  text-align: left;
+  text-align: center; /* Center description */
 }
 
 .expense-amount {
-  flex: 1; /* Match header ratio */
-  text-align: right;
+  flex: 1;
   font-size: 1.1rem;
   font-weight: 600;
-  /* color: #28a745; */
-  color: #ffffff;
+  color: #28a745;
+  text-align: center; /* Center amount */
   min-width: 120px;
 }
 
 .expense-date {
-  flex: 1; /* Match header ratio */
-  text-align: right;
+  flex: 1;
   font-size: 1rem;
-  color: #ccc;
+  color: #666;
+  text-align: center; /* Center date */
   min-width: 120px;
 }
 
 .expense-actions {
-  flex: 0.5; /* Match header ratio */
+  flex: 0.5;
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: center; /* Center actions */
   min-width: 100px;
-}
-
-.edit-btn,
-.delete-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 8px;
-  border-radius: 4px;
-  color: white;
-  font-size: 1rem;
-  transition: background 0.3s ease;
-}
-
-.edit-btn:hover {
-  background: rgba(0, 123, 255, 0.2);
-}
-
-.delete-btn:hover {
-  background: rgba(220, 53, 69, 0.2);
 }
 
 /* Edit mode styles */
@@ -163,4 +153,32 @@
 
 .cancel-btn:hover {
   background: rgba(220, 53, 69, 0.2);
+
+}
+@media (max-width: 480px) {
+  .expense-header,
+  .expense-item {
+    min-width: 500px; /* Smaller minimum width */
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .expense-header {
+    font-size: 0.9rem;
+  }
+
+  .expense-description {
+    font-size: 0.95rem !important;
+  }
+
+  .expense-amount,
+  .expense-date {
+    font-size: 0.85rem !important;
+    min-width: 80px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    padding: 6px;
+  }
 }

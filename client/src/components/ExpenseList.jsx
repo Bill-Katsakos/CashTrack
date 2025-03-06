@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { FaEdit, FaTrash, FaSave, FaTimes } from "react-icons/fa";
 import "../styles/expenseList.css";
 import { parseISO, format } from "date-fns";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import { AuthContext } from "../context/AuthContext";
 
 const ExpenseList = ({ expenses, onDelete, onUpdate }) => {
@@ -9,6 +10,25 @@ const ExpenseList = ({ expenses, onDelete, onUpdate }) => {
   const [editedDescription, setEditedDescription] = useState("");
   const [editedDate, setEditedDate] = useState("");
   const [editedAmount, setEditedAmount] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [expenseToDelete, setExpenseToDelete] = useState(null);
+
+
+  const handleDeleteClick = (expenseId) => {
+    setExpenseToDelete(expenseId);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    onDelete(expenseToDelete);
+    setShowDeleteModal(false);
+    setExpenseToDelete(null);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+    setExpenseToDelete(null);
+  };
 
   const handleEditClick = (expense) => {
     setEditingId(expense._id);
@@ -36,6 +56,11 @@ const ExpenseList = ({ expenses, onDelete, onUpdate }) => {
 
   return (
     <div className="expense-list-container">
+       <DeleteConfirmationModal
+        isOpen={showDeleteModal}
+        onCancel={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+      />
       <div className="expense-header">
         <span className="header-description">Description</span>
         <span className="header-amount">Amount</span>
@@ -106,10 +131,10 @@ const ExpenseList = ({ expenses, onDelete, onUpdate }) => {
                       <FaEdit />
                     </button>
                     <button
-                      onClick={() => onDelete(expense._id)}
-                      className="delete-btn"
-                      aria-label="Delete"
-                    >
+        onClick={() => handleDeleteClick(expense._id)}
+        className="delete-btn"
+        aria-label="Delete"
+      >
                       <FaTrash />
                     </button>
                   </div>

@@ -7,3 +7,16 @@
     /* color: #007bff; */
     color: #ffffff;
   }
+
+  /* Responsive Styles */
+@media (max-width: 768px) {
+  .expense-details {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .expense-details {
+    gap: 8px;
+  }
+}

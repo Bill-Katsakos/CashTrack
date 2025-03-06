@@ -1,184 +1,139 @@
-.expense-list-container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-  overflow-x: auto; /* For mobile horizontal scrolling */
-}
-
-.expense-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background: rgba(242, 95, 76, 1);
-  border: none;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  font-weight: 600;
-  color: white;
-  font-size: 1.1rem;
-  gap: 20px;
-  min-width: 650px; /* Minimum width for header */
-}
-
-.expense-header > span {
-  flex: 1;
-  text-align: center; /* Center header text */
-  min-width: 100px; /* Prevent text squishing */
-}
-
-.expense-header .header-description { flex: 3; }
-.expense-header .header-amount { flex: 1; }
-.expense-header .header-date { flex: 1; }
-.expense-header .header-actions { flex: 0.5; }
-
-.expense-list {
-  list-style-type: none;
-  padding: 0;
-  width: 100%;
-  min-width: 650px; /* Match header minimum width */
-}
-
 .expense-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  margin-bottom: 10px;
+  flex-direction: column;
+  padding: 15px;
   background: rgb(251, 248, 247);
-  border: none;
-  backdrop-filter: blur(10px);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  gap: 20px;
-  color: black;
-  min-width: 650px; /* Match header minimum width */
+  margin-bottom: 10px;
+  color : black;
 }
 
-.expense-item .edit-form input,
-.expense-description,
-.expense-amount,
-.expense-date,
-.edit-btn,
-.delete-btn,
-.save-btn,
-.cancel-btn {
-  color: black !important;
-}
-
-.edit-btn,
-.delete-btn,
-.save-btn,
-.cancel-btn {
-  border: none !important;
-  background-color: transparent !important;
-}
-
-.expense-item .edit-form input {
-  border: none;
-}
-
-.expense-details {
+.expense-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.expense-label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.expense-value {
   flex: 1;
-  gap: 20px;
+  text-align: left;
 }
 
-.expense-description {
-  flex: 3;
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-align: center; /* Center description */
-}
-
-.expense-amount {
-  flex: 1;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #28a745;
-  text-align: center; /* Center amount */
-  min-width: 120px;
-}
-
-.expense-date {
-  flex: 1;
-  font-size: 1rem;
-  color: #666;
-  text-align: center; /* Center date */
-  min-width: 120px;
-}
-
+/* Actions row */
 .expense-actions {
-  flex: 0.5;
   display: flex;
   gap: 10px;
-  justify-content: center; /* Center actions */
-  min-width: 100px;
+  margin-top: 8px;
 }
 
-/* Edit mode styles */
+/* Buttons */
+.edit-btn,
+.delete-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.edit-btn {
+  color: #007bff;
+}
+
+.delete-btn {
+  color: #dc3545;
+}
+
+/* Edit Form */
 .edit-form {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  align-items: center;
-  flex: 1;
+  padding: 10px;
+  background: rgba(251, 248, 247, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
 }
 
+/* Inputs */
 .edit-input {
-  padding: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   font-size: 1rem;
-  flex: 1;
+  transition: border 0.3s ease;
 }
 
-.save-btn,
-.cancel-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 8px;
-  border-radius: 4px;
-  color: white;
+.edit-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Buttons */
+.save-btn, .cancel-btn {
+  padding: 8px 12px;
+  border-radius: 5px;
   font-size: 1rem;
+  cursor: pointer;
   transition: background 0.3s ease;
 }
 
+.save-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+}
+
+.cancel-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+}
+
 .save-btn:hover {
-  background: rgba(0, 123, 255, 0.2);
+  background: #0056b3;
 }
 
 .cancel-btn:hover {
-  background: rgba(220, 53, 69, 0.2);
-
+  background: #c82333;
 }
+
+
+/* Mobile Fix: Make labels inline */
 @media (max-width: 480px) {
-  .expense-header,
-  .expense-item {
-    min-width: 500px; /* Smaller minimum width */
+  .expense-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .expense-label {
+    width: 80px; /* Ensures labels are aligned */
+    text-align: left;
+  }
+
+  .expense-value {
+    flex: 2;
+  }
+  .edit-form {
     gap: 8px;
-    padding: 10px 12px;
   }
 
-  .expense-header {
+  .save-btn, .cancel-btn {
     font-size: 0.9rem;
+    padding: 6px 10px;
   }
 
-  .expense-description {
-    font-size: 0.95rem !important;
-  }
 
-  .expense-amount,
-  .expense-date {
-    font-size: 0.85rem !important;
-    min-width: 80px;
-  }
 
-  .edit-btn,
-  .delete-btn {
-    padding: 6px;
-  }
+
 }

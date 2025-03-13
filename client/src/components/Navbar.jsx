@@ -45,6 +45,7 @@ const Navbar = () => {
         <option value="£">£ (GBP)</option>
         <option value="¥">¥ (JPY)</option>
       </select>
+      <Link to="/charts">Charts</Link>
     </div>
     <button onClick={handleLogout} className="logout-btn">
       Logout

@@ -16,6 +16,21 @@ export const fetchExpenses = async () => {
   }
 };
 
+// Fetch expense history for charts
+export const fetchExpenseHistory = async () => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.get(`${API_URL}/history`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("Fetched expenses:", response.data); // ✅ Debugging
+    return response.data;
+  } catch (err) {
+    console.error("Failed to fetch expense history", err);
+    return []; 
+  }
+};
+
 // Add a new expense
 export const addExpense = async (expenseData) => {
   const token = localStorage.getItem("token");

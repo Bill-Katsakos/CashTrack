@@ -22,9 +22,9 @@ router.put("/update/test/:id", updateExpenseTest);
 
 // ---------- Normal routes (with auth) ----------
 router.get("/", authMiddleware, getUserExpenses);
+router.get("/history", authMiddleware, getUserExpenses); 
 router.post("/add", authMiddleware, createExpense);
 router.delete("/delete", authMiddleware, deleteExpense);
 router.put("/update", authMiddleware, updateExpense);
 
 module.exports = router;
-// 🦖

@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import HistoryPage from "./pages/HistoryPage";
 import TodayExpensesPage from "./pages/TodayExpensesPage";
 import DashboardPage from "./pages/DashboardPage";
+import ChartsPage from "./pages/ChartsPage"; 
 import Navbar from "./components/Navbar";
 import "./styles/global.css"
 
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/todays" element={<TodayExpensesPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/charts" element={<ChartsPage />} /> 
         </Routes>
       </Router>
     </AuthProvider>
